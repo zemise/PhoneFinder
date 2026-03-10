@@ -37,18 +37,35 @@ jobs:
         shell: pwsh
         working-directory: ${{ github.workspace }}
         run: |
-          powershell -ExecutionPolicy Bypass -File .\scripts\win11_build_qt_installer.ps1 -QtCMakePrefix "C:\Qt\5.15.2\msvc2019_64"
+          cmake -S . -B build-win-qt -G "Visual Studio 17 2022" -A x64 -DCMAKE_PREFIX_PATH="C:\Qt\5.15.2\msvc2019_64"
+          cmake --build build-win-qt --config Release --target phonefinder_qt
+
+          $stageDir = Join-Path $PWD "build-win-qt\stage"
+          $distDir = Join-Path $PWD "dist"
+          New-Item -ItemType Directory -Force -Path $stageDir | Out-Null
+          New-Item -ItemType Directory -Force -Path $distDir | Out-Null
+
+          Copy-Item ".\build-win-qt\Release\PhoneFinder.exe" (Join-Path $stageDir "PhoneFinder.exe") -Force
+          if (Test-Path ".\resources\windows\icon.ico") {
+            Copy-Item ".\resources\windows\icon.ico" (Join-Path $stageDir "icon.ico") -Force
+          }
+          if (Test-Path ".\resources\trayicon.png") {
+            Copy-Item ".\resources\trayicon.png" (Join-Path $stageDir "trayicon.png") -Force
+          }
+
+          windeployqt --release (Join-Path $stageDir "PhoneFinder.exe")
+          makensis "/DAPP_STAGE_DIR=$stageDir" "/DAPP_OUTFILE=$(Join-Path $distDir 'PhoneFinder-installer.exe')" ".\packaging\qt_installer.nsi"
 
       - name: Verify installer exists
         shell: pwsh
         run: |
-          if (!(Test-Path "PhoneFinder\dist\PhoneFinder-installer.exe")) {
-            throw "Installer not found: PhoneFinder\dist\PhoneFinder-installer.exe"
+          if (!(Test-Path "dist\PhoneFinder-installer.exe")) {
+            throw "Installer not found: dist\PhoneFinder-installer.exe"
           }
 
       - name: Upload artifact only
         uses: actions/upload-artifact@v4
         with:
           name: PhoneFinder-installer-win
-          path: PhoneFinder/dist/PhoneFinder-installer.exe
+          path: dist/PhoneFinder-installer.exe
           retention-days: 5

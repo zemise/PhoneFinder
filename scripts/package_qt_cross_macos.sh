@@ -112,11 +112,11 @@ cp -f "${EXE_PATH}" "${STAGE_DIR}/PhoneFinder.exe"
 if [[ -f "${ROOT_DIR}/samples/医院科室电话数据模板_demo.csv" ]]; then
   cp -f "${ROOT_DIR}/samples/医院科室电话数据模板_demo.csv" "${STAGE_DIR}/"
 fi
-if [[ -f "${ROOT_DIR}resources/windows/icon.ico" ]]; then
-  cp -f "${ROOT_DIR}resources/windows/icon.ico" "${STAGE_DIR}/icon.ico"
+if [[ -f "${ROOT_DIR}/resources/windows/icon.ico" ]]; then
+  cp -f "${ROOT_DIR}/resources/windows/icon.ico" "${STAGE_DIR}/icon.ico"
 fi
-if [[ -f "${ROOT_DIR}resources/trayicon.png" ]]; then
-  cp -f "${ROOT_DIR}resources/trayicon.png" "${STAGE_DIR}/trayicon.png"
+if [[ -f "${ROOT_DIR}/resources/trayicon.png" ]]; then
+  cp -f "${ROOT_DIR}/resources/trayicon.png" "${STAGE_DIR}/trayicon.png"
 fi
 
 # Qt runtime dlls.

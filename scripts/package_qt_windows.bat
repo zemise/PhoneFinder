@@ -33,8 +33,8 @@ if exist "%STAGE_DIR%" rmdir /s /q "%STAGE_DIR%"
 mkdir "%STAGE_DIR%"
 copy /y "%BUILD_DIR%\Release\PhoneFinder.exe" "%STAGE_DIR%\"
 copy /y "%ROOT%\samples\医院科室电话数据模板_demo.csv" "%STAGE_DIR%\"
-if exist "%ROOT%\..\build\windows\icon.ico" copy /y "%ROOT%\..\build\windows\icon.ico" "%STAGE_DIR%\icon.ico"
-if exist "%ROOT%\..\build\trayicon.png" copy /y "%ROOT%\..\build\trayicon.png" "%STAGE_DIR%\trayicon.png"
+if exist "%ROOT%\resources\windows\icon.ico" copy /y "%ROOT%\resources\windows\icon.ico" "%STAGE_DIR%\icon.ico"
+if exist "%ROOT%\resources\trayicon.png" copy /y "%ROOT%\resources\trayicon.png" "%STAGE_DIR%\trayicon.png"
 windeployqt --release "%STAGE_DIR%\PhoneFinder.exe"
 if errorlevel 1 exit /b 1
 

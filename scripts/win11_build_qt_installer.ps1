@@ -30,9 +30,8 @@ $nsiFile = Join-Path $root "packaging\qt_installer.nsi"
 $outFile = Join-Path $distDir "PhoneFinder-installer.exe"
 $exePath = Join-Path $buildDir "Release\PhoneFinder.exe"
 $sampleCsv = Join-Path $root "samples\医院科室电话数据模板_demo.csv"
-$repoRoot = (Resolve-Path (Join-Path $root "..")).Path
-$appIco = Join-Path $repoRoot "build\windows\icon.ico"
-$trayPng = Join-Path $repoRoot "build\trayicon.png"
+$appIco = Join-Path $root "resources\windows\icon.ico"
+$trayPng = Join-Path $root "resources\trayicon.png"
 
 if (-not (Test-Path $distDir)) {
   New-Item -ItemType Directory -Path $distDir | Out-Null

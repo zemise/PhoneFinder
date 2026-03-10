@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# C++ build outputs
+build*/
+dist/
+*.zip
+
+# private
+samples/医院科室电话数据模板.csv
+
+# IDE
+.idea/
+.vscode/
+
+# Node (if any)
+node_modules/

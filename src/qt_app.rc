@@ -1,0 +1,2 @@
+IDI_APPICON ICON "../../build/windows/icon.ico"
+1 RT_MANIFEST "qt_app.manifest"

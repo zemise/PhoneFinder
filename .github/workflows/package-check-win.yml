@@ -1,0 +1,54 @@
+name: package-check-win
+
+on:
+  pull_request:
+  push:
+    branches: [main, develop, feat/**]
+
+permissions:
+  contents: read
+
+jobs:
+  build-installer:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Qt 5.15.2 (MSVC) and NSIS
+        shell: pwsh
+        run: |
+          python -m pip install --upgrade pip aqtinstall
+          python -m aqt install-qt windows desktop 5.15.2 win64_msvc2019_64 -O C:\Qt
+          choco install nsis -y
+
+      - name: Add Qt bin to PATH
+        shell: pwsh
+        run: |
+          "C:\Qt\5.15.2\msvc2019_64\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+      - name: Build and package (no publish)
+        shell: pwsh
+        run: |
+          Set-Location PhoneFinder
+          powershell -ExecutionPolicy Bypass -File .\scripts\win11_build_qt_installer.ps1 -QtCMakePrefix "C:\Qt\5.15.2\msvc2019_64"
+
+      - name: Verify installer exists
+        shell: pwsh
+        run: |
+          if (!(Test-Path "PhoneFinder\dist\PhoneFinder-installer.exe")) {
+            throw "Installer not found: PhoneFinder\dist\PhoneFinder-installer.exe"
+          }
+
+      - name: Upload artifact only
+        uses: actions/upload-artifact@v4
+        with:
+          name: PhoneFinder-installer-win
+          path: PhoneFinder/dist/PhoneFinder-installer.exe
+          retention-days: 5

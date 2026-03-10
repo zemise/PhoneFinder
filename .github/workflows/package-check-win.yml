@@ -35,8 +35,8 @@ jobs:
 
       - name: Build and package (no publish)
         shell: pwsh
+        working-directory: ${{ github.workspace }}
         run: |
-          Set-Location PhoneFinder
           powershell -ExecutionPolicy Bypass -File .\scripts\win11_build_qt_installer.ps1 -QtCMakePrefix "C:\Qt\5.15.2\msvc2019_64"
 
       - name: Verify installer exists

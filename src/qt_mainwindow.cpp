@@ -64,8 +64,8 @@ QIcon loadTrayIconFromDisk() {
   const QStringList candidates = {
       appDir + "/trayicon.png",
       appDir + "/icon.ico",
-      "build/trayicon.png",
-      "build/windows/icon.ico",
+      "resources/trayicon.png",
+      "resources/windows/icon.ico",
   };
   for (const auto& p : candidates) {
     if (!QFileInfo::exists(p)) {

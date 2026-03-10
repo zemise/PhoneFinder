@@ -130,3 +130,17 @@ Notes:
 
 - Hotkey `*2` is normalized/validated by rules; registration currently maps to base key for OS hotkey API.
 - `PhoneFinder` currently focuses on cross-platform UI and core search/settings behavior.
+- Pinyin map is generated from open-source `pinyin-data`. Regenerate with:
+
+```bash
+cd PhoneFinder
+scripts/generate_pinyin_map.py \
+  --pinyin-data third_party/pinyin-data/pinyin.txt \
+  --out include/phonefinder/pinyin_map_generated.hpp
+```
+
+To lock generation to a custom subset, add:
+
+```bash
+--required-chars /path/to/required_chars.txt
+```

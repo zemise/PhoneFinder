@@ -15,8 +15,8 @@ QIcon loadAppIcon() {
   const QStringList candidates = {
       appDir + "/icon.ico",
       appDir + "/trayicon.png",
-      "build/windows/icon.ico",
-      "build/trayicon.png",
+      "resources/windows/icon.ico",
+      "resources/trayicon.png",
   };
   for (const auto& p : candidates) {
     if (!QFileInfo::exists(p)) {

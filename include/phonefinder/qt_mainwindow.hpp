@@ -27,6 +27,7 @@ class QtMainWindow : public QMainWindow {
  public:
   explicit QtMainWindow(QWidget* parent = nullptr);
   ~QtMainWindow() override;
+  void activateFromExternalTrigger();
 
  protected:
   void closeEvent(QCloseEvent* event) override;

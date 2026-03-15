@@ -90,6 +90,7 @@ cmake -S "${ROOT_DIR}" -B "${BUILD_DIR}" -G "${GENERATOR}" \
   -DCMAKE_PREFIX_PATH="${QT_WIN_PREFIX}" \
   -DQt5Core_DIR="${QT_WIN_PREFIX}/lib/cmake/Qt5Core" \
   -DQt5Gui_DIR="${QT_WIN_PREFIX}/lib/cmake/Qt5Gui" \
+  -DQt5Network_DIR="${QT_WIN_PREFIX}/lib/cmake/Qt5Network" \
   -DQt5Widgets_DIR="${QT_WIN_PREFIX}/lib/cmake/Qt5Widgets" \
   -DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF \
   -DCMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY=OFF \
@@ -122,6 +123,7 @@ fi
 # Qt runtime dlls.
 copy_if_exists "${QT_WIN_PREFIX}/bin/Qt5Core.dll" "${STAGE_DIR}/"
 copy_if_exists "${QT_WIN_PREFIX}/bin/Qt5Gui.dll" "${STAGE_DIR}/"
+copy_if_exists "${QT_WIN_PREFIX}/bin/Qt5Network.dll" "${STAGE_DIR}/"
 copy_if_exists "${QT_WIN_PREFIX}/bin/Qt5Widgets.dll" "${STAGE_DIR}/"
 
 # Qt platform plugin.

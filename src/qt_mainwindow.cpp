@@ -284,6 +284,13 @@ QtMainWindow::~QtMainWindow() {
 #endif
 }
 
+void QtMainWindow::activateFromExternalTrigger() {
+  if (isMinimized()) {
+    showNormal();
+  }
+  showFromTray();
+}
+
 static QWidget* buildResultRowWidget(int idx, const MatchResult& m, QWidget* parent) {
   auto* row = new QWidget(parent);
   row->setObjectName("resultRow");
